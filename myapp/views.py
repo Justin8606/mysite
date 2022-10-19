@@ -6,6 +6,7 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("hegfg hgfghfh")"""
 
+from ast import Return
 from multiprocessing import context
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -40,5 +41,16 @@ def products(request):
     context = {'products':p}
     
     return render(request, 'myapp/products.html',context=context)
+
+def product_details(request,id):
+    p = product.objects.get(id=id)
+    context = {'p':p}
+    return render(request, 'myapp/product_details.html',context=context)
+
+def add_product(request):
+    p = product(name = "Samsung 32 Inch Monitor",price = 36000.0)
+    p.description = "This is a Samsung Monitor"
     
+    p.save()
     
+    return HttpResponse(p)
