@@ -1,3 +1,4 @@
+from email.mime import image
 from enum import unique
 from unicodedata import name
 from unittest.util import _MAX_LENGTH
@@ -11,3 +12,4 @@ class product(models.Model):
     name = models.CharField(max_length=100,unique=True)
     price = models.FloatField()
     description = models.CharField(max_length=200)
+    image= models.ImageField(blank=True,upload_to='images')
