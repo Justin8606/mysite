@@ -8,10 +8,11 @@ def index(request):
 
 from ast import Return
 from multiprocessing import context
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from myapp.models import product
+from django.contrib.auth import authenticate, login
 
 # Create your views here,
 
@@ -48,9 +49,20 @@ def product_details(request,id):
     return render(request, 'myapp/product_details.html',context=context)
 
 def add_product(request):
-    p = product(name = "Samsung 32 Inch Monitor",price = 36000.0)
-    p.description = "This is a Samsung Monitor"
+    # p = product(name = "Samsung 32 Inch Monitor",price = 36000.0)
+    # p.description = "This is a Samsung Monitor"
     
-    p.save()
-    
-    return HttpResponse(p)
+    # p.save()
+    if request.method == 'POST':
+        name= request.POST.get('name')
+        price = request.POST.get('price')
+        desc = request.POST.get('desc')
+        image = request.FILES['upload']
+        
+        p = product(name=name,price=price,description=desc,image=image)
+        p.save()
+        
+        return redirect('/myapp/products')
+        
+           
+    return render(request,'myapp/add_product.html')
