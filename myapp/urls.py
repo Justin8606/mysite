@@ -1,8 +1,8 @@
 from django.urls import path,include
-from myapp.views import index
-from .views import news_one, product_details,products,add_product,update_product,delete_product
+from myapp.views import product_details,add_product,delete_product,update_product,products,index,news_one
 
 urlpatterns = [
+    
     path('',index),
     path('new/',news_one),
     path('products/',products,name='products'),

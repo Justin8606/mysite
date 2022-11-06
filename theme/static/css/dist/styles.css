@@ -3461,12 +3461,12 @@ html {
   width: 2.5rem;
 }
 
-.w-96 {
-  width: 24rem;
-}
-
 .w-36 {
   width: 9rem;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .flex-1 {
