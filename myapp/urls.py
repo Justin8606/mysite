@@ -1,6 +1,8 @@
 from django.urls import path,include
 from myapp.views import product_details,add_product,delete_product,update_product,products,index,news_one
 
+# app_name = 'myapp'
+
 urlpatterns = [
     
     path('',index),
