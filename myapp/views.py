@@ -10,7 +10,7 @@ from ast import Return
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
 from myapp.models import product
 from django.contrib.auth import authenticate, login
 
@@ -35,6 +35,7 @@ def index(request):
 def news_one(request):
     return render(request, 'listing/news_one.html')
 
+@login_required
 def products(request):
     #p = product.objects.filter(price__gt = 100000)
     p = product.objects.all()
