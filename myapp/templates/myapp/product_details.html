@@ -15,6 +15,8 @@
   <div class="card-body">
     <h2 class="card-title">{{p.name}}</h2>
     <p>{{p.description}}</p>
+    <p>Sold By : {{p.seller_name}}</p><br>
+    <a href="{% url 'users:sellerprofile' p.seller_name.id %}" > <div class="text-sm text-stone-500">Seller Details</div> </a>
     <div class="card-actions justify-end">
       <button class="btn btn-primary">₹{{p.price}}</button>
     </div>

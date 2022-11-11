@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import register,profile,create_profile
+from .views import register,profile,create_profile,seller_profile
 from django.contrib.auth import views as authentication_views
 
 app_name = 'users'
@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout/',authentication_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('profile/',profile,name='profile'),
     path('createprofile/',create_profile,name='createprofile'),
+    path('sellerprofile/<int:id>',seller_profile,name='sellerprofile'),
 #     path('products/<int:id>',product_details,name='product_details'),
 #     path('products/add',add_product,name='add_product'),
 #     path('products/update/<int:id>',update_product,name='update_product'),
