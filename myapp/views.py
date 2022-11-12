@@ -11,8 +11,9 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from myapp.models import product
+from myapp.models import Product
 from django.contrib.auth import authenticate, login
+from django.views.generic import ListView,TemplateView,DetailView,CreateView,DeleteView,UpdateView
 
 # Create your views here,
 
@@ -35,20 +36,32 @@ def index(request):
 def news_one(request):
     return render(request, 'listing/news_one.html')
 
+class ProductListView(ListView):
+    model = Product
+    template_name = 'myapp/products.html'
+    context_object_name = 'products'
+
+
 @login_required
 def products(request):
     #p = product.objects.filter(price__gt = 100000)
-    p = product.objects.all()
+    p = Product.objects.all()
     
     context = {'products':p}
     
     return render(request, 'myapp/products.html',context=context)
 
 def product_details(request,id):
-    p = product.objects.get(id=id)
+    p = Product.objects.get(id=id)
     context = {'p':p}
     return render(request, 'myapp/product_details.html',context=context)
 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'myapp/product_details.html'
+    context_object_name = 'p'
+
+@login_required
 def add_product(request):
     # p = product(name = "Samsung 32 Inch Monitor",price = 36000.0)
     # p.description = "This is a Samsung Monitor"
@@ -60,7 +73,8 @@ def add_product(request):
         desc = request.POST.get('desc')
         image = request.FILES['upload']
         
-        p = product(name=name,price=price,description=desc,image=image)
+        p = Product(name=name,price=price,description=desc,image=image)
+        p.seller_name = request.user 
         p.save()
         
         return redirect('/myapp/products')
@@ -69,7 +83,7 @@ def add_product(request):
     return render(request,'myapp/add_product.html')
 
 def update_product(request,id):
-    p = product.objects.get(id=id)
+    p = Product.objects.get(id=id)
     context = {'p':p}
     
     if request.method == 'POST':
@@ -92,7 +106,7 @@ def update_product(request,id):
     return render(request,'myapp/update_product.html',context=context)
 
 def delete_product(request,id):
-    p = product.objects.get(id=id)
+    p = Product.objects.get(id=id)
     context = {'p':p}
     
     if request.method == 'POST':
