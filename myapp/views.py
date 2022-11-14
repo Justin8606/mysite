@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from myapp.models import Product
 from django.contrib.auth import authenticate, login
 from django.views.generic import ListView,TemplateView,DetailView,CreateView,DeleteView,UpdateView
+from django.urls import reverse_lazy
 
 # Create your views here,
 
@@ -105,6 +106,12 @@ def update_product(request,id):
            
     return render(request,'myapp/update_product.html',context=context)
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    fields = ['name', 'price', 'description', 'image', 'seller_name']
+    template_name = "myapp/update_product.html"
+    success_url = reverse_lazy('myapp:products')
+
 def delete_product(request,id):
     p = Product.objects.get(id=id)
     context = {'p':p}
@@ -115,3 +122,9 @@ def delete_product(request,id):
         
            
     return render(request,'myapp/delete_product.html',context=context)
+
+class ProductDelete(DeleteView):
+    model = Product
+    template_name = 'myapp/delete_product.html'
+    
+    success_url = reverse_lazy('myapp:products')
