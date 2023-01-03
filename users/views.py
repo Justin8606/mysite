@@ -57,3 +57,6 @@ def seller_profile(request,id):
     }
 
     return render(request, 'users/seller_profile.html',context=context)    
+
+
+    

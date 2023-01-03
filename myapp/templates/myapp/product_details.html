@@ -20,10 +20,14 @@
     <div class="card-actions justify-end">
       <button class="btn btn-primary">₹{{p.price}}</button>
     </div>
+
+      <form action="/add-to-cart" class="d-inline">
+        <input type="hidden" name="prod_id" value={{product.id}} />
+      <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+    </form>
+    {% comment %} <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Buy Now</a> {% endcomment %}
   </div>
-</div>
-
+  </div>
 
       
-      
-      {% endblock  %}
+      {% endblock content %}

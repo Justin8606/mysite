@@ -11,4 +11,6 @@ class Profile(models.Model):
     image = models.ImageField(blank = True,upload_to = 'profile_pics')
     contact_number = models.CharField(max_length =15)
         
-        
+
+    
+
